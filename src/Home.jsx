@@ -43,19 +43,25 @@ const Home = () => {
         name: name,
         icon: `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${icon}.svg`,
       });
+     
       setQuery("")
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    if (cards.length < 5 && weatherData.name !== "") {
-      setCards([...cards, weatherData])
+  const updateCards = (info) => {
+    if (cards.length < 5 && info.name !== "") {
+      setCards([...cards, info])
     } else {
       const tempCard = cards.slice(1);
-      setCards([...tempCard, weatherData])
+      setCards([...tempCard, info])
     }
-  }, [weatherData]);
+  };
+
+  useEffect(() => {
+   updateCards(weatherData)
+  },[weatherData])
+  
 
   const handleEnter = (e) =>{
     if(e.keyCode === 13){
